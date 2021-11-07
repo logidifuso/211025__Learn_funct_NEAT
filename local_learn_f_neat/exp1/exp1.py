@@ -136,7 +136,7 @@ def run_experiment(config_file, checkpoint=None, mp=False, num_generaciones=10):
     return p, config
 
 
-def experimento(config_file_neat, cp, n_generaciones, mp):
+def experimento(config_file_neat, cp, n_generaciones, mp, seed):
     """Experiment
     """
 
@@ -148,7 +148,6 @@ def experimento(config_file_neat, cp, n_generaciones, mp):
     utils.clear_output(graphs_dir)
 
     # Fijo semilla para reproducibilidad
-    seed = 1559231615
     random.seed(seed)
 
     begin = time.time()

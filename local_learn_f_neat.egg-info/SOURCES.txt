@@ -6,6 +6,7 @@ local_learn_f_neat.egg-info/SOURCES.txt
 local_learn_f_neat.egg-info/dependency_links.txt
 local_learn_f_neat.egg-info/top_level.txt
 local_learn_f_neat/common/__init__.py
+local_learn_f_neat/common/configuracion.py
 local_learn_f_neat/common/utils.py
 local_learn_f_neat/common/visualize.py
 local_learn_f_neat/exp1/__init__.py

@@ -69,7 +69,7 @@ if __name__ == '__main__':
         # Requiere que cp exista en el archivo .ini, en caso contrario error
         n_generaciones = config_exp.getint('seccion_0', 'num_generaciones')
     else:
-        n_generaciones = 5
+        n_generaciones = 15
 
     if config_exp is not None:
         # Requiere que cp exista en el archivo .ini, en caso contrario error
@@ -77,6 +77,12 @@ if __name__ == '__main__':
     else:
         mp = True  # Por defecto se usa el módulo de multiprocessing
 
+    if config_exp is not None:
+        # Requiere que cp exista en el archivo .ini, en caso contrario error
+        seed = config_exp.get('seccion_0', 'seed')
+    else:
+        seed = 1559231615  # Valor de la semilla por defecto
+
     # Ejecución del experimento
     caso_modulo = importlib.import_module(".".join((caso, caso)))
-    caso_modulo.experimento(config_file_neat, cp, n_generaciones, mp)
+    caso_modulo.experimento(config_file_neat, cp, n_generaciones, mp, seed)
