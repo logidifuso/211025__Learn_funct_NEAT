@@ -15,6 +15,3 @@ __all__ = ['main', 'locneat', 'common', 'funciones']
 # ----------------------------------------------------------------------------------------------------
 
 from . import *
-#from . import main
-#from . import common
-#from . import exp1

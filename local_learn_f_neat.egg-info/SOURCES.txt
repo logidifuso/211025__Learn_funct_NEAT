@@ -1,7 +1,7 @@
 setup.py
 local_learn_f_neat/__init__.py
+local_learn_f_neat/locneat.py
 local_learn_f_neat/main.py
-local_learn_f_neat/prueba.py
 local_learn_f_neat.egg-info/PKG-INFO
 local_learn_f_neat.egg-info/SOURCES.txt
 local_learn_f_neat.egg-info/dependency_links.txt
@@ -10,6 +10,5 @@ local_learn_f_neat/common/__init__.py
 local_learn_f_neat/common/configuracion.py
 local_learn_f_neat/common/utils.py
 local_learn_f_neat/common/visualize.py
-local_learn_f_neat/exp1/__init__.py
-local_learn_f_neat/exp1/exp1.py
-local_learn_f_neat/exp1/exp1_model.py
+local_learn_f_neat/funciones/__init__.py
+local_learn_f_neat/funciones/funciones.py

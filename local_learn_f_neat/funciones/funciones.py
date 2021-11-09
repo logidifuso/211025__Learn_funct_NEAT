@@ -137,7 +137,79 @@ class Funciones:
         fitness = m.exp(-mse)
         return fitness
 
+    @staticmethod
+    def plot_salida_seno(self, net, view=False, filename='salida.svg'):
+        """ Plots the population's average and best fitness. """
+        if plt is None:
+            warnings.warn("This display is not available due to a missing optional dependency (matplotlib)")
+            return
+
+        n_eval_points = 90
+        salida = np.ndarray([n_eval_points])
+        seno = np.ndarray([n_eval_points])
+        for i in range(n_eval_points):
+            valor = i * (2 * np.pi / n_eval_points)
+            # val = net.activate([valor])
+            salida[i] = net.activate([valor])[0]
+            seno[i] = (np.sin(valor) + 1) / 2
+
+        x = range(n_eval_points)
+
+        plt.plot(x, salida, 'b-', label="salida")
+        plt.plot(x, seno, 'r-', label="seno")
+
+        plt.title("Salida vs Valor exacto")
+        plt.xlabel("x")
+        plt.ylabel("Salida")
+        plt.grid()
+
+        plt.savefig(filename)
+        if view:
+            plt.show()
+
+        plt.close()
+
+    @staticmethod
+    def eval_fitness(net, caso):
+        do = f"eval_{caso}"
+        if hasattr(self, do) and callable(func := getattr(self, do)):
+            func(net)
+
+    @staticmethod
+    def plot_salida(net, caso):
+        do = f"plot_salida_{caso}"
+        if hasattr(self, do) and callable(func := getattr(self, do)):
+            func(net)
+
+
+"""
     def eval_fitness(self, net, caso):
         do = f"eval_{caso}"
         if hasattr(self, do) and callable(func := getattr(self, do)):
             func(net)
+"""
+
+class Prueba:
+
+    def __init__(self, valor: int):
+        """Constructor"""
+        self.valor = valor
+
+
+    def valor0(self):
+        print("Escogiste valor 0")
+
+    def valor1(self):
+        print("Escogiste valor 1")
+
+    def escoge(self):
+        if self.valor == 0:
+            self.valor0()
+        elif self.valor == 1:
+            self.valor1()
+        else:
+            print("Ni lo uno ni lo otro")
+
+
+
+

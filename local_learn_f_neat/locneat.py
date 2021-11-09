@@ -10,14 +10,15 @@ import time
 
 
 
-import funciones
+#import funciones
 # Local imports - Namespace packages?
 # Este módulo se llama desde main.py, éste módulo no contiene ninguna informacion
 # de package, por tanto se resuelve como si fuera top-level, es decir desde el
 # directorio "top"
-import Intercambio.local_learn_f_neat.exp1.exp1_model as sin
+#import Intercambio.local_learn_f_neat.exp1.exp1_model as sin
 import local_learn_f_neat.common.utils as utils
 import local_learn_f_neat.common.visualize as vis
+import local_learn_f_neat.funciones.funciones as func
 
 
 # TODO: Tienes que modificar todas estas carpetas para crearlas (si no existen) a partir de la ruta del experimento!!!
@@ -39,7 +40,7 @@ def eval_genomes_mp(genomes, config):
     #                                      package='local_learn_f_neat')
     #genomes.fitness = caso_modulo.eval_fitness(net)
 
-    genomes.fitness = funciones.Funciones.eval_fitness(net, caso)
+    genomes.fitness = func.Funciones.eval_fitness(net, caso)
 
     return genomes.fitness
 
@@ -53,7 +54,7 @@ def eval_genomes_single(genomes, config):
         #caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
         #                                      package='local_learn_f_neat')
         #genome.fitness = caso_modulo.eval_fitness(net)
-        genomes.fitness = funciones.Funciones.eval_fitness(net, caso)
+        genomes.fitness = func.Funciones.eval_fitness(net, caso)
 
 
 def create_pool_and_config(config_file, checkpoint):
@@ -83,7 +84,7 @@ def evaluate_best_net(net, config):
     #                                      package='local_learn_f_neat')
 
     #fitness = caso_modulo.eval_fitness(net)
-    fitness = funciones.Funciones.eval_fitness(net, caso)
+    fitness = func.Funciones.eval_fitness(net, caso)
 
     if fitness < config.fitness_threshold:
         return False
@@ -101,8 +102,8 @@ def evaluate_best_net(net, config):
 def run_experiment(path_results, graphs_path, checkpoints_path, config_file, caso,
                    checkpoint=None, mp=False, num_generaciones=10):
 
-    caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
-                                          package='local_learn_f_neat')
+    #caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
+    #                                      package='local_learn_f_neat')
 
     p, config = create_pool_and_config(config_file, checkpoint)
 
@@ -157,7 +158,7 @@ def run_experiment(path_results, graphs_path, checkpoints_path, config_file, cas
         vis.draw_net(config, best_genome, True, node_names=node_names, directory=graphs_path, fmt='svg')
         vis.plot_stats_sine(stats, ylog=False, view=True, filename=os.path.join(graphs_path, 'avg_fitness.svg'))
         vis.plot_species(stats, view=True, filename=os.path.join(graphs_path, 'speciation.svg'))
-        caso_modulo.plot_salida(net, view=True, filename=os.path.join(graphs_path, 'salida.svg'))
+        func.Funciones.plot_salida(net, view=True, filename=os.path.join(graphs_path, 'salida.svg'))
 
     except:
         print("Stopping the Jobs. ", sys.exc_info())
@@ -202,9 +203,11 @@ def start_experiment(ruta_config_exp, ruta_experiment):
     #  modulo correspondiente para cada caso (e.g. seno.py, funcioncita.py, etc..). Se repite
     #  código pero es más seguro...
     global caso
-    caso = settings[0]
+    caso = "seno" # settings[0]
     config_file_neat = os.path.join(ruta_experiment, settings[1])
-    cp = settings[2]
+    cp = None
+    if settings[2] != 0:
+        cp = settings[2]
     n_generaciones = settings[3]
     mp = settings[4]
     seed = settings[5]
@@ -249,3 +252,42 @@ def start_experiment(ruta_config_exp, ruta_experiment):
     # caso_modulo = importlib.import_module(''.join([".", ".".join((caso, caso))]),
     #                                         package='local_learn_f_neat')
     #  caso_modulo.experimento(ruta_experiment, config_file_neat, cp, n_generaciones, mp, seed)
+
+
+def define_and_set_global():
+    global testeo
+    testeo = "test global"
+    print(testeo)
+
+
+def test_global():
+    print(testeo)
+
+
+def test_Prueba():
+    x = int(input("Introduce el número: "))
+    global objeto
+    objeto = func.Prueba(x)
+    test2_Prueba()
+
+
+def test2_Prueba():
+    objeto.escoge()
+
+
+"""
+    def valor0(self):
+        print("Escogiste valor 0")
+
+    def valor1(self):
+        print("Escogiste valor 1")
+
+    def escoge(self):
+        if self.valor == 0:
+            self.valor0()
+        elif self.valor == 1:
+            self.valor1()
+        else:
+            print("Ni lo uno ni lo otro")
+"""
+
