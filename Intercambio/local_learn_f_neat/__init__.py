@@ -2,7 +2,7 @@
 #from os.path import dirname, basename, isfile, join
 #import glob
 
-__all__ = ['main', 'locneat', 'common', 'funciones']
+__all__ = ['main', 'prueba', 'common', 'exp1']
 
 # ---------------------------------------------------------------------------------------------------
 # Alternativa para hacer el listado automático (de momento lo dejo, ..pero para cuando crezca la lista)
@@ -18,3 +18,4 @@ from . import *
 #from . import main
 #from . import common
 #from . import exp1
+

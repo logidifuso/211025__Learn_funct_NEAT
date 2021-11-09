@@ -11,10 +11,12 @@ import time
 # Este módulo se llama desde main.py, éste módulo no contiene ninguna informacion
 # de package, por tanto se resuelve como si fuera top-level, es decir desde el
 # directorio "top"
-import local_learn_f_neat.exp1.exp1_model as sin
-import local_learn_f_neat.common.utils as utils
-import local_learn_f_neat.common.visualize as vis
+import Intercambio.local_learn_f_neat.exp1.exp1_model as sin
+import Intercambio.local_learn_f_neat.common.utils as utils
+import Intercambio.local_learn_f_neat.common.visualize as vis
 
+
+# TODO: Tienes que modificar todas estas carpetas para crearlas (si no existen) a partir de la ruta del experimento!!!
 # The current working directory
 local_dir = os.path.dirname(__file__)
 # local_dir = "./"                                    # Directoria actual
@@ -69,7 +71,7 @@ def evaluate_best_net(net, config):
         return True
 
 
-def run_experiment(config_file, checkpoint=None, mp=False, num_generaciones=10):
+def run_experiment(ruta_experiment, config_file, checkpoint=None, mp=False, num_generaciones=10):
 
     p, config = create_pool_and_config(config_file, checkpoint)
 
@@ -85,7 +87,7 @@ def run_experiment(config_file, checkpoint=None, mp=False, num_generaciones=10):
     # Comment out la opción descartada
 
     # p.add_reporter(CheckpointerBest(filename_prefix="".join((outputs_dir, '/sin_exp-checkpoint-'))))
-    p.add_reporter(neat.Checkpointer(5, filename_prefix="".join((outputs_dir, '/sin_exp-checkpoint-'))))
+    p.add_reporter(neat.Checkpointer(5, filename_prefix="".join((outputs_dir, '\\sin_exp-checkpoint-'))))
 
     pe = None
     # this part required to handle keyboard intterrupt correctly, and return population and config to evaluate test set.
@@ -136,11 +138,11 @@ def run_experiment(config_file, checkpoint=None, mp=False, num_generaciones=10):
     return p, config
 
 
-def experimento(config_file_neat, cp, n_generaciones, mp, seed):
+def experimento(ruta_experiment, config_file_neat, cp, n_generaciones, mp, seed):
     """Experiment
     """
 
-    config_path = os.path.join(local_dir, config_file_neat)
+    #config_path = os.path.join(local_dir, config_file_neat)
 
     # os.makedirs(out_dir, exist_ok=True)  # Crea carpeta de salida #Original. Reemplazado por:
     # Limpia los resultados de la ejecución anterior (si los hubiera) o inicia la carpeta a usar
@@ -153,11 +155,11 @@ def experimento(config_file_neat, cp, n_generaciones, mp, seed):
     begin = time.time()
 
     if cp is not None:
-        ret = run_experiment(config_path,
+        ret = run_experiment(ruta_experiment, config_file_neat,
                              checkpoint="".join((outputs_dir, '/sin_exp-checkpoint-{}'.format(cp))),
-                             mp=True, num_generaciones=n_generaciones)
+                             mp=mp, num_generaciones=n_generaciones)
     else:
-        ret = run_experiment(config_path, mp=mp, num_generaciones=n_generaciones)
+        ret = run_experiment(ruta_experiment, config_path, mp=mp, num_generaciones=n_generaciones)
 
     end = time.time()
     # Tiempo de ejecución de neat

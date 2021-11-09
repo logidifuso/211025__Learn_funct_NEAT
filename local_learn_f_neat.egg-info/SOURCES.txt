@@ -1,6 +1,7 @@
 setup.py
 local_learn_f_neat/__init__.py
 local_learn_f_neat/main.py
+local_learn_f_neat/prueba.py
 local_learn_f_neat.egg-info/PKG-INFO
 local_learn_f_neat.egg-info/SOURCES.txt
 local_learn_f_neat.egg-info/dependency_links.txt
