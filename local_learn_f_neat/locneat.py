@@ -8,13 +8,16 @@ import signal
 import sys
 import time
 
+
+
+import funciones
 # Local imports - Namespace packages?
 # Este módulo se llama desde main.py, éste módulo no contiene ninguna informacion
 # de package, por tanto se resuelve como si fuera top-level, es decir desde el
 # directorio "top"
 import Intercambio.local_learn_f_neat.exp1.exp1_model as sin
-import Intercambio.local_learn_f_neat.common.utils as utils
-import Intercambio.local_learn_f_neat.common.visualize as vis
+import local_learn_f_neat.common.utils as utils
+import local_learn_f_neat.common.visualize as vis
 
 
 # TODO: Tienes que modificar todas estas carpetas para crearlas (si no existen) a partir de la ruta del experimento!!!
@@ -26,13 +29,18 @@ import Intercambio.local_learn_f_neat.common.visualize as vis
 #outputs_dir = os.path.join(local_dir, 'outputs')
 #graphs_dir = os.path.join(outputs_dir, 'graphs')
 
-
+# todo: para hacerlo más limpio y evitar el uso de la variable global "caso", podría cambiar a
+#  llamar la función de evaluación de forma dinámica, entonces, tengo una clase en funciones.py
+#  con los métodos eval_genomes_seno, eval_genomes_logaritmo, .... y se pueden llamar dinámicamente
 def eval_genomes_mp(genomes, config):
     net = neat.nn.FeedForwardNetwork.create(genomes, config)
 
-    caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
-                                          package='local_learn_f_neat')
-    genomes.fitness = caso_modulo.eval_fitness(net)
+    #caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
+    #                                      package='local_learn_f_neat')
+    #genomes.fitness = caso_modulo.eval_fitness(net)
+
+    genomes.fitness = funciones.Funciones.eval_fitness(net, caso)
+
     return genomes.fitness
 
 
@@ -42,9 +50,10 @@ def eval_genomes_single(genomes, config):
         # net = RecurrentNet.create(genome, config,1)
         net = neat.nn.FeedForwardNetwork.create(genome, config)
 
-        caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
-                                              package='local_learn_f_neat')
-        genome.fitness = caso_modulo.eval_fitness(net)
+        #caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
+        #                                      package='local_learn_f_neat')
+        #genome.fitness = caso_modulo.eval_fitness(net)
+        genomes.fitness = funciones.Funciones.eval_fitness(net, caso)
 
 
 def create_pool_and_config(config_file, checkpoint):
@@ -70,10 +79,12 @@ def evaluate_best_net(net, config):
     :param config: ruta al archivo de configuración del experimento
     :return: True en caso de éxito; False en caso contrario
     """
-    caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
-                                          package='local_learn_f_neat')
+    #caso_modulo = importlib.import_module(''.join([".", ".".join(('funciones', caso))]),
+    #                                      package='local_learn_f_neat')
 
-    fitness = caso_modulo.eval_fitness(net)
+    #fitness = caso_modulo.eval_fitness(net)
+    fitness = funciones.Funciones.eval_fitness(net, caso)
+
     if fitness < config.fitness_threshold:
         return False
     else:
