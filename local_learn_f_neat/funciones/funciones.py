@@ -210,6 +210,14 @@ class Prueba:
         else:
             print("Ni lo uno ni lo otro")
 
+    def devuelve_metodo(self):
+        x = self.valor
+        do = f"valor{x}"
+        if hasattr(self, do) and callable(getattr(self, do)):
+            func = getattr(self, do)
+            return func
+
+
 
 
 

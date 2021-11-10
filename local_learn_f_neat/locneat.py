@@ -291,3 +291,15 @@ def test2_Prueba():
             print("Ni lo uno ni lo otro")
 """
 
+def test_devuelve_metodo():
+    x = int(input("Introduce la opción: "))
+    caso_x = func.Prueba(x)
+    #funcion = caso_x.func.Prueba.devuelve_metodo()
+    funcion = func.Prueba.devuelve_metodo(caso_x)
+    return funcion
+
+
+def test_metodo_devuelto():
+    funcion = test_devuelve_metodo()
+    #print(funcion)
+    funcion()
